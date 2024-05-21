@@ -8,15 +8,12 @@ public class basicEnemy : Enemy
 {
 
     Rigidbody2D MyRigidbody;
+    public int damage = 1;
     public float MoveSpeed = 2;
-
     public float MyMovementSpeeed;
-
     public Transform Player;
-
     public GameObject Loot;
-
-
+    public UIScript Logic;
 
     void Start(){
 
@@ -24,6 +21,7 @@ public class basicEnemy : Enemy
         Player = FindObjectOfType<Player>().transform;
         
         MyMovementSpeeed = MoveSpeed * Random.Range(0.95f,1.05f);
+        Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<UIScript>();
         
     }
 
@@ -42,6 +40,7 @@ public class basicEnemy : Enemy
     // just a place hollder collsion 
     public void OnTriggerEnter2D(Collider2D  collison){
         if (collison.tag == "Player"){
+            Logic.PlayerHit(damage);
             Death();
         
        }
