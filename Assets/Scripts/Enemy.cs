@@ -7,6 +7,15 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    /*public float health = 10f;
 
+    public void TakeDamage(float damageToTake)
+    {
+        health -= damageToTake;
 
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }*/
 }

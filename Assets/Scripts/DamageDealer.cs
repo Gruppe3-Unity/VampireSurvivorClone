@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
+    public float damageAmount;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            collision.GetComponent<basicEnemy>().TakeDamage(damageAmount);
+        }
+    }
 }
