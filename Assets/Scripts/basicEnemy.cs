@@ -14,7 +14,7 @@ public class basicEnemy : Enemy
     public Transform Player;
     public GameObject Loot;
     public UIScript Logic;
-    public int health = 10;
+    public float health = 10f;
 
     void Start(){
 
@@ -38,16 +38,15 @@ public class basicEnemy : Enemy
     }
     
 
-    /*
+    
     public void OnTriggerEnter2D(Collider2D  collison){
         if (collison.tag == "Player"){
             Logic.PlayerHit(damage);
-            Death();
-        
+            Destroy(this.gameObject);
        }
     }
-    */
-    public void TakeDamage(int damageToTake)
+    
+    public void TakeDamage(float damageToTake)
     {
         health -= damageToTake;
 
