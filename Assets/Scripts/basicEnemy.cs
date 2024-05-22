@@ -38,7 +38,7 @@ public class basicEnemy : Enemy
     }
     
 
-    // just a place hollder collsion 
+    /*
     public void OnTriggerEnter2D(Collider2D  collison){
         if (collison.tag == "Player"){
             Logic.PlayerHit(damage);
@@ -46,14 +46,14 @@ public class basicEnemy : Enemy
         
        }
     }
-
+    */
     public void TakeDamage(float damageToTake)
     {
         health -= damageToTake;
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Death();
         }
     }
 
