@@ -14,7 +14,7 @@ public class basicEnemy : Enemy
     public Transform Player;
     public GameObject Loot;
     public UIScript Logic;
-    public float health = 10f;
+    public int health = 10;
 
     void Start(){
 
@@ -47,7 +47,7 @@ public class basicEnemy : Enemy
        }
     }
     */
-    public void TakeDamage(float damageToTake)
+    public void TakeDamage(int damageToTake)
     {
         health -= damageToTake;
 
