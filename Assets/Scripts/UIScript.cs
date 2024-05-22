@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SocialPlatforms.Impl;
+using Unity.VisualScripting;
 
 public class UIScript : MonoBehaviour
 {
+
+     public EnemySpawner EnemySpawner;
+
     public int PlayerHP = 100;
     public int PlayerExp = 0 ; 
+    public int EXPperLVL = 10;
     public int LVL = 0; 
+
+    public int Score = 0;
     public Text ScoreText;
     public Slider HpBar;
+    public Slider EXPbar;
+    
+    public Text LVLText;
+
 
     void Start(){
-
+        InvokeRepeating("score",1,1);
+        EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
 
     }
     
@@ -22,7 +35,15 @@ public class UIScript : MonoBehaviour
         
     }
 
-    
+    private void score(){
+        Score++;
+        ScoreText.text = ("Score : " + Score.ToString());
+        if ( Score % 10 == 0){
+            EnemySpawner.NumberOfEnemy += 1;
+        }
+    }
+
+
     public void PlayerHit(int Damagetaken){
         PlayerHP = PlayerHP - Damagetaken;
         
@@ -34,8 +55,12 @@ public class UIScript : MonoBehaviour
     }
     public void GiveExp (int Exp){
         PlayerExp += Exp;
-        ScoreText.text = ("Score :" + PlayerExp.ToString());
-        
+        EXPbar.value = (float)PlayerExp/EXPperLVL;
+        if (PlayerExp >= EXPperLVL){
+            PlayerExp = 0 ;
+            LVL++;
+            LVLText.text = ("LVL : " + LVL.ToString());
+        }
     }
 
 

@@ -38,15 +38,14 @@ public class basicEnemy : Enemy
     }
     
 
-    /*
+    
     public void OnTriggerEnter2D(Collider2D  collison){
         if (collison.tag == "Player"){
             Logic.PlayerHit(damage);
-            Death();
-        
+            Destroy(this.gameObject);
        }
     }
-    */
+    
     public void TakeDamage(float damageToTake)
     {
         health -= damageToTake;
