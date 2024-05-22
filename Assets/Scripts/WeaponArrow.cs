@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponArrow : Weapon
@@ -10,20 +11,18 @@ public class WeaponArrow : Weapon
 
     [SerializeField]
     private float arrowSpeed = 20f;
-
-     public Transform Player;
-       public Rigidbody2D Playerbody;
+    public GameObject Player;
+    public Rigidbody2D Playerbody;
 
     void Start(){
-        Player = FindObjectOfType<Player>().transform;
+        Player = GameObject.FindGameObjectWithTag("Player");
+        
         Playerbody = Player.GetComponent<Rigidbody2D>();
     }
 
 
     private void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ShootArrow();
@@ -42,11 +41,13 @@ public class WeaponArrow : Weapon
 
         // Calculate the direction the arrow should move
         Vector2 arrowDirection;
-        if (Playerbody.velocity.normalized == Vector2.zero){
-
-            arrowDirection = transform.right * arrowSpeed;
+        
+        if (Playerbody.velocity.normalized == Vector2.zero)
+        {
+            arrowDirection = Player.GetComponent<Player>().Lastmove.normalized * arrowSpeed;
         }
-        else{
+        else
+        {
             arrowDirection = Playerbody.velocity.normalized * arrowSpeed;
         }
 
