@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+
 
 public class UIScript : MonoBehaviour
 {
@@ -27,6 +29,10 @@ public class UIScript : MonoBehaviour
     void Start(){
         InvokeRepeating("score",1,1);
         EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        PlayerHP = 100;
+        PlayerExp = 0;
+        LVL = 0;
+        Score = 0;
 
     }
     
@@ -48,7 +54,8 @@ public class UIScript : MonoBehaviour
         PlayerHP = PlayerHP - Damagetaken;
         
         HpBar.value = (float)PlayerHP/100;
-        if (PlayerHP >= 0){
+        if (PlayerHP <= 0){
+            SceneManager.LoadScene("Start Screen");
 
         }
        
