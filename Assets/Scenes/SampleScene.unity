@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 451039956}
   - component: {fileID: 451039957}
   - component: {fileID: 451039958}
+  - component: {fileID: 451039959}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -405,6 +406,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axePrefab: {fileID: 5925635240980102832, guid: 5ea17a1ab1f4c6241a93af3288be544f, type: 3}
   axeSpeed: 10
+  Player: {fileID: 0}
+  Playerbody: {fileID: 0}
+--- !u!114 &451039959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451039953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ded25dbabe1324b818460309ed8168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sparkPrefab: {fileID: 6527495684170054627, guid: 51ebf324a9c998a40b55f2f322654706, type: 3}
+  sparkSpeed: 20
   Player: {fileID: 0}
   Playerbody: {fileID: 0}
 --- !u!1 &500949344
