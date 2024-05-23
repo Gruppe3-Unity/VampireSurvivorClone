@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 
 
-public class Player : MonoBehaviour
+public class Player : UIScript
 {
     public float MoveSpeed;
     float SpeedX, SpeedY;
