@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : UIScript
 {
     /*public float health = 10f;
 
