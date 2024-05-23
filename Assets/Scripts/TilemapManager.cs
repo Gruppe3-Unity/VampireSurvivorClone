@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TilemapManager : UIScript
+public class TilemapManager : MonoBehaviour
 {
     public Tilemap[] tilemaps;
 

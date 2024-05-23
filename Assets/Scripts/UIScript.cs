@@ -41,16 +41,23 @@ public class UIScript : MonoBehaviour
         InvokeRepeating("score",1,1);
         EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>(); 
         Audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
-        Time.timeScale = 1;
+        //set veribals
+        Time.timeScale = 1; 
         PlayerHP = 100;
         PlayerExp = 0;
         LVL = 0;
         Score = 0;
+        //start music
         Audiomanager.Play("Fight[0]");
+
+
+
         if (tilemapManager == null)
         {
             tilemapManager = GameObject.FindObjectOfType<TilemapManager>();
         }
+
+        // get a text for weaponswitch
            StartPopUp.gameObject.SetActive(true);
             CoroutineStartUP = StartPoptext(2.0f);
             StartCoroutine(CoroutineStartUP);
@@ -58,10 +65,6 @@ public class UIScript : MonoBehaviour
 
     }
     
-    void Update(){
-
-        
-    }
 
     private void score(){
         Score++;
@@ -87,30 +90,36 @@ public class UIScript : MonoBehaviour
         EXPbar.value = (float)PlayerExp/EXPperLVL;
         Audiomanager.Play("PowerUp");
         if (PlayerExp >= EXPperLVL){
+            LvlUp();            
+        }
+    }
+
+    private void LvlUp(){
             PlayerExp = 0 ;
             LVL++;
             EXPperLVL += 10;
             LVLText.text = ("LVL : " + LVL.ToString());
-            if (LVL == 11){
+            if (LVL == tilemapManager.tilemaps.Length){
+                //End Game
                 EndGame.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 
             }
             else{
+                
             LVLPopUp.gameObject.SetActive(true);
             Coroutinelvlup = lvlUPText(2.0f);
             StartCoroutine(Coroutinelvlup);
-
-            }
+            // change map
             int tilemapIndex = LVL % tilemapManager.tilemaps.Length;
             currentTilemap = tilemapManager.tilemaps[tilemapIndex];
             tilemapManager.ActivateTilemap(currentTilemap);
+            //change music
             try{
             Audiomanager.Stop("Fight["+(tilemapIndex-1)+"]");
             }catch{Audiomanager.StopAll();}
             Audiomanager.Play("Fight["+tilemapIndex+"]");
-            
-        }
+            }
     }
 
     private IEnumerator lvlUPText(float waitTime){
