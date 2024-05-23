@@ -13,6 +13,7 @@ public class UIScript : MonoBehaviour
 {
 
     public EnemySpawner EnemySpawner;
+    private AudioManager Audiomanager;
 
     public int PlayerHP = 100;
     public int PlayerExp = 0 ; 
@@ -33,6 +34,8 @@ public class UIScript : MonoBehaviour
     void Start(){
         InvokeRepeating("score",1,1);
         EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        Audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+
         PlayerHP = 100;
         PlayerExp = 0;
         LVL = 0;
@@ -71,6 +74,7 @@ public class UIScript : MonoBehaviour
     public void GiveExp (int Exp){
         PlayerExp += Exp;
         EXPbar.value = (float)PlayerExp/EXPperLVL;
+        Audiomanager.Play("PowerUp");
         if (PlayerExp >= EXPperLVL){
             PlayerExp = 0 ;
             LVL++;
