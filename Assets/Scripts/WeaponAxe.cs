@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
@@ -13,6 +14,11 @@ public class WeaponAxe : Weapon
 
     [SerializeField]
     private float axeSpeed = 20f;
+    
+    public float spread = 0.5f;
+
+    public int NumberOfAxes = 3;
+
     public GameObject Player;
     public Rigidbody2D Playerbody;
 
@@ -27,15 +33,13 @@ public class WeaponAxe : Weapon
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            ThrowAxe();
-        }
+
     }
 
-    private void ThrowAxe()
+    public void ThrowAxe()
     {
-
+        
+        for (int i = 0; i < NumberOfAxes;i++){
 
         // Instantiate the axe at the character's position and rotation
         GameObject axeInstance = Instantiate(axePrefab, transform.position, transform.rotation);
@@ -54,6 +58,10 @@ public class WeaponAxe : Weapon
         {
             axeDirection = Playerbody.velocity.normalized * axeSpeed;
         }
+        axeDirection.x = axeDirection.x + (i-1)*spread;
+
+        axeDirection.y = axeDirection.y + (i-1)*spread;
+        
 
         // Apply a force to the axe to move it in the calculated direction
         axeRigidbody.AddForce(axeDirection, ForceMode2D.Impulse);
@@ -62,11 +70,12 @@ public class WeaponAxe : Weapon
 
         axeInstance.transform.Rotate(0, 0, AxeAngel);
 
-        // Add a rotation to the axe every fixed frame
-        axeRigidbody.velocity = axeDirection;
-
+    
         // Destroy the axe after 2 seconds
-        Destroy(axeInstance, 2f);
+        Destroy(axeInstance, 0.5f);
+        
+    }
+
     }
 
     private void OnTriggerEnter2D(Collider2D hitInfo)

@@ -22,14 +22,11 @@ public class WeaponArrow : Weapon
 
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ShootArrow();
-        }
+    { 
+
     }
 
-    private void ShootArrow()
+    public void ShootArrow()
     {
        
 

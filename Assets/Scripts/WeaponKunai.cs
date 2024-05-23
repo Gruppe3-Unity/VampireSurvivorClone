@@ -25,13 +25,10 @@ public class WeaponKunai : Weapon
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            ShootKunai();
-        }
+
     }
 
-    private void ShootKunai()
+    public void ShootKunai()
     {
 
 

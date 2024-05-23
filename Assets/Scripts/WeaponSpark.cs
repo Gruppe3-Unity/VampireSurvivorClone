@@ -25,13 +25,10 @@ public class WeaponSpark : Weapon
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ShootSpark();
-        }
+
     }
 
-    private void ShootSpark()
+    public void ShootSpark()
     {
 
 
@@ -56,7 +53,7 @@ public class WeaponSpark : Weapon
         // Apply a force to the kunai to move it in the calculated direction
         sparkRigidbody.AddForce(sparkDirection, ForceMode2D.Impulse);
 
-        float SparkAngel = Vector2.SignedAngle(Vector2.right, sparkDirection.normalized);
+        float SparkAngel = Vector2.SignedAngle(Vector2.up, sparkDirection.normalized);
 
         sparkInstance.transform.Rotate(0, 0, SparkAngel);
 
