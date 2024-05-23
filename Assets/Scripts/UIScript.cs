@@ -6,12 +6,13 @@ using TMPro;
 using UnityEngine.SocialPlatforms.Impl;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 
 public class UIScript : MonoBehaviour
 {
 
-     public EnemySpawner EnemySpawner;
+    public EnemySpawner EnemySpawner;
 
     public int PlayerHP = 100;
     public int PlayerExp = 0 ; 
@@ -25,6 +26,9 @@ public class UIScript : MonoBehaviour
     
     public Text LVLText;
 
+    public Tilemap currentTilemap;
+    public TilemapManager tilemapManager;
+
 
     void Start(){
         InvokeRepeating("score",1,1);
@@ -34,6 +38,10 @@ public class UIScript : MonoBehaviour
         LVL = 0;
         Score = 0;
 
+        if (tilemapManager == null)
+        {
+            tilemapManager = GameObject.FindObjectOfType<TilemapManager>();
+        }
     }
     
     void Update(){
@@ -67,6 +75,10 @@ public class UIScript : MonoBehaviour
             PlayerExp = 0 ;
             LVL++;
             LVLText.text = ("LVL : " + LVL.ToString());
+
+            int tilemapIndex = LVL % tilemapManager.tilemaps.Length;
+            currentTilemap = tilemapManager.tilemaps[tilemapIndex];
+            tilemapManager.ActivateTilemap(currentTilemap);
         }
     }
 
