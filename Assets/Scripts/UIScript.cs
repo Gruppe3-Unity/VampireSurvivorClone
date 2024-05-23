@@ -24,8 +24,14 @@ public class UIScript : MonoBehaviour
     public Text ScoreText;
     public Slider HpBar;
     public Slider EXPbar;
-    
     public Text LVLText;
+    public Text LVLPopUp;
+    public Text StartPopUp;
+
+    public GameObject EndGame;
+
+    private IEnumerator Coroutinelvlup;
+    private IEnumerator CoroutineStartUP;
 
     public Tilemap currentTilemap;
     public TilemapManager tilemapManager;
@@ -33,18 +39,23 @@ public class UIScript : MonoBehaviour
 
     void Start(){
         InvokeRepeating("score",1,1);
-        EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+        EnemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner").GetComponent<EnemySpawner>(); 
         Audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
-
+        Time.timeScale = 1;
         PlayerHP = 100;
         PlayerExp = 0;
         LVL = 0;
         Score = 0;
-
+        Audiomanager.Play("Fight[0]");
         if (tilemapManager == null)
         {
             tilemapManager = GameObject.FindObjectOfType<TilemapManager>();
         }
+           StartPopUp.gameObject.SetActive(true);
+            CoroutineStartUP = StartPoptext(2.0f);
+            StartCoroutine(CoroutineStartUP);
+
+
     }
     
     void Update(){
@@ -63,7 +74,7 @@ public class UIScript : MonoBehaviour
 
     public void PlayerHit(int Damagetaken){
         PlayerHP = PlayerHP - Damagetaken;
-        
+        Audiomanager.Play("PlayerHit");
         HpBar.value = (float)PlayerHP/100;
         if (PlayerHP <= 0){
             SceneManager.LoadScene("Start Screen");
@@ -78,13 +89,40 @@ public class UIScript : MonoBehaviour
         if (PlayerExp >= EXPperLVL){
             PlayerExp = 0 ;
             LVL++;
+            EXPperLVL += 10;
             LVLText.text = ("LVL : " + LVL.ToString());
+            if (LVL == 11){
+                EndGame.gameObject.SetActive(true);
+                Time.timeScale = 0;
+                
+            }
+            else{
+            LVLPopUp.gameObject.SetActive(true);
+            Coroutinelvlup = lvlUPText(2.0f);
+            StartCoroutine(Coroutinelvlup);
 
+            }
             int tilemapIndex = LVL % tilemapManager.tilemaps.Length;
             currentTilemap = tilemapManager.tilemaps[tilemapIndex];
             tilemapManager.ActivateTilemap(currentTilemap);
+            try{
+            Audiomanager.Stop("Fight["+(tilemapIndex-1)+"]");
+            }catch{Audiomanager.StopAll();}
+            Audiomanager.Play("Fight["+tilemapIndex+"]");
+            
         }
     }
 
+    private IEnumerator lvlUPText(float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        LVLPopUp.gameObject.SetActive(false);
+        
+    }
+
+    private IEnumerator StartPoptext(float waitTime){
+        yield return new WaitForSeconds(waitTime);
+        StartPopUp.gameObject.SetActive(false);
+        
+    }
 
 }

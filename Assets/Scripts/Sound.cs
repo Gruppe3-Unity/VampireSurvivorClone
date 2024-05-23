@@ -14,6 +14,8 @@ public class Sound
     public float Volume;
     [Range(.1f,3)]
     public float Pitch;
+
+    public bool Loop;    
     
     
     [HideInInspector]

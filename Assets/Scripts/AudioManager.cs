@@ -15,14 +15,24 @@ public class AudioManager : MonoBehaviour
 
         s.source.volume = s.Volume;
         s.source.pitch = s.Pitch;
-        Debug.Log("aduiomagenr awake");
+        s.source.loop = s.Loop;
     }
    }
     // Update is called once per frame
 
     public void Play (string Name){
-        Debug.Log("aduio play funtion");
+        
         Sound s = Array.Find(sounds,sound => sound.Name == Name);
         s.source.Play();
     }
+    public void Stop (string Name){
+                Sound s = Array.Find(sounds,sound => sound.Name == Name);
+        s.source.Stop();
+    }
+    public void StopAll(){
+        foreach (Sound s in sounds){
+            s.source.Stop();
+        }
+    }
+
 }
