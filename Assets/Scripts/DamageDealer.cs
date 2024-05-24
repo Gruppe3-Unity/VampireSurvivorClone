@@ -10,7 +10,7 @@ public class DamageDealer : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<basicEnemy>().TakeDamage(damageAmount);
+            collision.GetComponent<Enemy>().TakeDamage(damageAmount);
         }
     }
 }

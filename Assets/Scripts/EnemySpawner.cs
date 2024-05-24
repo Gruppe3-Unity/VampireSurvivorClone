@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
 
     public GameObject Enemy;
+    public GameObject Enemy1;
     public float SpawnTimer = 2;
     public float timer = 0;
 
+    
     public int NumberOfEnemy;
 
     public Transform Player;
@@ -31,8 +34,17 @@ public class EnemySpawner : MonoBehaviour
 
         }
         else{
+
+
             for (int i = 0; i < NumberOfEnemy; i ++){
+            if (i >10)
+            {
+                Instantiate(Enemy1,SpawnPoint(),Quaternion.identity);
+            }
+            else
+            {
             Instantiate(Enemy,SpawnPoint(),Quaternion.identity);
+            }
             }
             timer = 0;
         }

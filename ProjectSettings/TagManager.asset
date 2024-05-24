@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - Logic
   - EnemySpawner
+  - AudioManager
   layers:
   - Default
   - TransparentFX
